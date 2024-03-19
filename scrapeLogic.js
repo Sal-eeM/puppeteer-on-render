@@ -29,7 +29,7 @@ const scrapeLogic = async (res) => {
         const $ = cheerio.load(pageData);
         const quotes = $('div.quote');
     
-        async function scrapeQuotesFromPage() {
+        function scrapeQuotesFromPage() {
             quotes.each((index, element) => {
                 const quote = $(element).find('span.text').text();
                 const author = $(element).find('.author').text();
