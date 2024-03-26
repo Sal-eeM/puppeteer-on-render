@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 4000;
 
 
 
-app.get('/scrape', (req, res) => {
+app.get('/api/scrape', (req, res) => {
     scrapeLogic(res);
 });
 
