@@ -11,7 +11,7 @@
     args:
     - 'run'
     - 'deploy'
-    - 'cloudrun-cicd-cicd'
+    - 'cloudrun-cicd'
     - '--allow-unauthenticated'
     - '--image'
     - 'gcr.io/$PROJECT_ID/cloudrun-cicd:$COMMIT_SHA'
