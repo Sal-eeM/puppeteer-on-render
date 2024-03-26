@@ -12,7 +12,7 @@
     - 'run'
     - 'deploy'
     - 'cloudrun-cicd-cicd'
-    - 'allow-unauthenticated'
+    - '--allow-unauthenticated'
     - '--image'
     - 'gcr.io/$PROJECT_ID/cloudrun-cicd:$COMMIT_SHA'
     - '--region'
