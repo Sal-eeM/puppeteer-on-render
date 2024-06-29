@@ -1,0 +1,36 @@
+name: build-and-push
+run-name: Build and push ${{ github.repo }}
+on:
+  push:
+    branches: ["main"]
+env:
+  GAR_URL: europe-west9-docker.pkg.dev
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Set short git commit SHA
+        id: vars
+        run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+      - name: Confirm git commit SHA output
+        run: echo ${{ env.COMMIT_SHORT_SHA }}
+      - id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}"
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+      - name: "Docker auth"
+        run: |-
+          gcloud auth configure-docker ${{ env.GAR_URL }} --quiet
+      - name: Build Docker image
+        uses: docker/build-push-action@v5.3.0
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: "${{ vars.CONTAINER_REGISTRY }}/puppeteer-render-tutorial:${{ env.COMMIT_SHORT_SHA }}"
