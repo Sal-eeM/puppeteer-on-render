@@ -7,13 +7,13 @@ const PORT = process.env.PORT || 4000;
 
 
 
-app.get('/api/scrape', (req, res) => {
+app.get('/api/quotes', (req, res) => {
     scrapeLogic(res);
 });
 
 
 app.get('/', (req, res) => {
-    res.send("Render Puppeteer server is up and running");
+    res.send("Puppeteer server is up and running");
 })
 
 
